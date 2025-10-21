@@ -1,0 +1,3 @@
+file(REMOVE_RECURSE
+  "libSGE_GRAPHIC_LIBRARIES.a"
+)

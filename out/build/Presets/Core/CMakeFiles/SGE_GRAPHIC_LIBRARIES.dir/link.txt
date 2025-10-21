@@ -1,0 +1,2 @@
+C:\msys64\ucrt64\bin\ar.exe qc libSGE_GRAPHIC_LIBRARIES.a CMakeFiles/SGE_GRAPHIC_LIBRARIES.dir/src/buffer.cpp.obj CMakeFiles/SGE_GRAPHIC_LIBRARIES.dir/src/shader.cpp.obj CMakeFiles/SGE_GRAPHIC_LIBRARIES.dir/src/buffer_layout.cpp.obj CMakeFiles/SGE_GRAPHIC_LIBRARIES.dir/src/texture.cpp.obj CMakeFiles/SGE_GRAPHIC_LIBRARIES.dir/__/Dependencies/stb/src/stb_image.cpp.obj
+C:\msys64\ucrt64\bin\ranlib.exe libSGE_GRAPHIC_LIBRARIES.a

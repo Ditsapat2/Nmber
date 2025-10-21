@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/Learn/out/build/Presets/cmake_install.cmake",
+		"D:/Learn/out/build/Presets/Dependencies/GLFW/cmake_install.cmake",
+		"D:/Learn/out/build/Presets/Dependencies/GLFW/src/cmake_install.cmake",
+		"D:/Learn/out/build/Presets/Core/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
