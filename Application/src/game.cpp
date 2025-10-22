@@ -73,6 +73,7 @@ namespace Nmber {
        );
        Level level(std::ifstream("../../../Application/map/test.tmj"));
        level.load_level(Resources::get_scene(GAME_SCENE));
+       
        glEnable(GL_DEPTH_TEST);
        glDepthFunc(GL_LESS);
        SGE::Time::get().restart();
