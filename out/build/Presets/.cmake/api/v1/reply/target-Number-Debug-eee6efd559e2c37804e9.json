@@ -1,0 +1,198 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "Number.exe"
+		},
+		{
+			"path" : "Number.pdb"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt",
+			"Core/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 32,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 35,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 29,
+				"parent" : 3
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 49,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 5,
+					"path" : "D:/Learn/Dependencies/GLFW/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "D:/Learn/Dependencies/GLAD/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "D:/Learn/Dependencies/stb/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "D:/Learn/Dependencies/nlohmann"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "D:/Learn"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "D:/Learn/Application"
+				}
+			],
+			"language" : "CXX",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "glad::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "stb_image::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "APPLICATION_LIBRARY::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "glfw::@da80f509d53611e61767"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "SGE_GRAPHIC_LIBRARIES::@94795ff35dabbbd3a8ca"
+		}
+	],
+	"id" : "Number::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "Dependencies\\GLFW\\src\\libglfw3.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "libglad.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "libstb_image.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-lopengl32",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "libAPPLICATION_LIBRARY.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "Core\\libSGE_GRAPHIC_LIBRARIES.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "Number",
+	"nameOnDisk" : "Number.exe",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Application/src/application.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

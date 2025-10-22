@@ -1,5 +1,6 @@
 #include "../include/game.hpp"
 #include "../include/component.hpp"
+#include "../include/level.hpp"
 
 namespace Nmber {
     Game::~Game() {
@@ -70,6 +71,8 @@ namespace Nmber {
         Transform{100,100,.1f, 100,100},
         DrawResource(1.f,0.f,0.f,1.f)
        );
+       Level level(std::ifstream("../../../Application/map/test.tmj"));
+       level.load_level(Resources::get_scene(GAME_SCENE));
        glEnable(GL_DEPTH_TEST);
        glDepthFunc(GL_LESS);
        SGE::Time::get().restart();

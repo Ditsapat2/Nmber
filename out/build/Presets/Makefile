@@ -686,6 +686,30 @@ Application/src/game.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\APPLICATION_LIBRARY.dir\build.make CMakeFiles/APPLICATION_LIBRARY.dir/Application/src/game.cpp.s
 .PHONY : Application/src/game.cpp.s
 
+Application/src/level.obj: Application/src/level.cpp.obj
+.PHONY : Application/src/level.obj
+
+# target to build an object file
+Application/src/level.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APPLICATION_LIBRARY.dir\build.make CMakeFiles/APPLICATION_LIBRARY.dir/Application/src/level.cpp.obj
+.PHONY : Application/src/level.cpp.obj
+
+Application/src/level.i: Application/src/level.cpp.i
+.PHONY : Application/src/level.i
+
+# target to preprocess a source file
+Application/src/level.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APPLICATION_LIBRARY.dir\build.make CMakeFiles/APPLICATION_LIBRARY.dir/Application/src/level.cpp.i
+.PHONY : Application/src/level.cpp.i
+
+Application/src/level.s: Application/src/level.cpp.s
+.PHONY : Application/src/level.s
+
+# target to generate assembly for a file
+Application/src/level.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\APPLICATION_LIBRARY.dir\build.make CMakeFiles/APPLICATION_LIBRARY.dir/Application/src/level.cpp.s
+.PHONY : Application/src/level.cpp.s
+
 Dependencies/GLAD/src/glad.obj: Dependencies/GLAD/src/glad.c.obj
 .PHONY : Dependencies/GLAD/src/glad.obj
 
@@ -789,6 +813,9 @@ help:
 	@echo ... Application/src/game.obj
 	@echo ... Application/src/game.i
 	@echo ... Application/src/game.s
+	@echo ... Application/src/level.obj
+	@echo ... Application/src/level.i
+	@echo ... Application/src/level.s
 	@echo ... Dependencies/GLAD/src/glad.obj
 	@echo ... Dependencies/GLAD/src/glad.i
 	@echo ... Dependencies/GLAD/src/glad.s

@@ -1,2 +1,2 @@
-C:\msys64\ucrt64\bin\ar.exe qc libAPPLICATION_LIBRARY.a CMakeFiles/APPLICATION_LIBRARY.dir/Application/src/game.cpp.obj
+C:\msys64\ucrt64\bin\ar.exe qc libAPPLICATION_LIBRARY.a CMakeFiles/APPLICATION_LIBRARY.dir/Application/src/game.cpp.obj CMakeFiles/APPLICATION_LIBRARY.dir/Application/src/level.cpp.obj
 C:\msys64\ucrt64\bin\ranlib.exe libAPPLICATION_LIBRARY.a

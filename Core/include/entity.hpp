@@ -55,6 +55,7 @@ namespace SGE { namespace Components {
     class EntityObject {
     public:
         EntityObject() = default;
+        EntityObject(Register& reg, Entity e) : m_owner(&reg), m_entity(e) {}
     private:
         Register* m_owner=nullptr;
         Entity m_entity;

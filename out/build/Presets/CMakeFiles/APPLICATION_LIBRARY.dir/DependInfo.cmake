@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/Learn/Application/src/game.cpp" "CMakeFiles/APPLICATION_LIBRARY.dir/Application/src/game.cpp.obj" "gcc" "CMakeFiles/APPLICATION_LIBRARY.dir/Application/src/game.cpp.obj.d"
+  "D:/Learn/Application/src/level.cpp" "CMakeFiles/APPLICATION_LIBRARY.dir/Application/src/level.cpp.obj" "gcc" "CMakeFiles/APPLICATION_LIBRARY.dir/Application/src/level.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

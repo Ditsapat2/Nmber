@@ -3364,3 +3364,84 @@ events:
         - "C:/cmake-4.1.2-windows-x86_64"
         - "D:/Learn/out/install/Presets"
 ...
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/cmake-4.1.2-windows-x86_64/share/cmake-4.1/Modules/CTest.cmake:171 (find_program)"
+      - "CMakeLists.txt:55 (include)"
+    mode: "program"
+    variable: "GITCOMMAND"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "git"
+    candidate_directories:
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Users/Lenovo Thinkpad T14/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/Lenovo Thinkpad T14/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/msys64/ucrt64/bin/"
+      - "C:/cmake-4.1.2-windows-x86_64/bin/"
+      - "C:/Program Files/bin/"
+      - "C:/Program Files/sbin/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/bin/"
+      - "C:/Program Files (x86)/sbin/"
+      - "C:/Program Files (x86)/"
+      - "C:/cmake-4.1.2-windows-x86_64/bin/"
+      - "C:/cmake-4.1.2-windows-x86_64/sbin/"
+      - "C:/cmake-4.1.2-windows-x86_64/"
+      - "D:/Learn/out/install/Presets/bin/"
+      - "D:/Learn/out/install/Presets/sbin/"
+      - "D:/Learn/out/install/Presets/"
+    searched_directories:
+      - "C:/Windows/System32/git.com"
+      - "C:/Windows/System32/git.exe"
+      - "C:/Windows/System32/git"
+      - "C:/Windows/git.com"
+      - "C:/Windows/git.exe"
+      - "C:/Windows/git"
+      - "C:/Windows/System32/wbem/git.com"
+      - "C:/Windows/System32/wbem/git.exe"
+      - "C:/Windows/System32/wbem/git"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/git.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/git.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/git"
+      - "C:/Windows/System32/OpenSSH/git.com"
+      - "C:/Windows/System32/OpenSSH/git.exe"
+      - "C:/Windows/System32/OpenSSH/git"
+      - "C:/Program Files/Git/cmd/git.com"
+    found: "C:/Program Files/Git/cmd/git.exe"
+    search_context:
+      ENV{PATH}:
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Users\\Lenovo Thinkpad T14\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\Lenovo Thinkpad T14\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\msys64\\ucrt64\\bin"
+        - "C:\\cmake-4.1.2-windows-x86_64\\bin"
+      CMAKE_INSTALL_PREFIX: "D:/Learn/out/install/Presets"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/cmake-4.1.2-windows-x86_64"
+        - "D:/Learn/out/install/Presets"
+...

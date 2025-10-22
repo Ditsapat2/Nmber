@@ -23,6 +23,7 @@ target_include_directories(stb_image PRIVATE "${CMAKE_SOURCE_DIR}/Dependencies/s
 
 set(APPLICATION_SRCS
     ${CMAKE_SOURCE_DIR}/Application/src/game.cpp
+    ${CMAKE_SOURCE_DIR}/Application/src/level.cpp
 )
 add_library(APPLICATION_LIBRARY
     ${APPLICATION_SRCS}
