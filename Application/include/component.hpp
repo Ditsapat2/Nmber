@@ -9,8 +9,15 @@ namespace Nmber {
     using KeyCallback = void(*)(GLFWwindow* window, void*, int, int, int, int) ;
 
     struct Transform {
-        float x,y,z;
+        float x,y;
         float w,h;
+        Transform()=default;
+        Transform(float x,float y, float w,float h) : x(x), y(y), w(w), h(h) {}
+    } ;
+    struct Layer {
+        int layer;
+        Layer()=default;
+        Layer(int layer) : layer(layer) {}
     } ;
     struct DrawResource {
         int id=-1;

@@ -8,6 +8,7 @@
 #include <memory>
 #include <cstring>
 #include <iterator>
+#include <algorithm>
 
 namespace SGE { namespace Components {
     using Entity = uint64_t;
@@ -37,7 +38,7 @@ namespace SGE { namespace Components {
             s.sign(bit, args...);
             auto l = m_data.size()<s.m_data.size()? m_data.size(): s.m_data.size();
             for (unsigned i=0; i<l; ++i) {
-                if ((m_data[i] & s.m_data[i]) == 0)
+                if ((m_data[i] & s.m_data[i]) != s.m_data[i])
                     return false;
             }
             return true;
@@ -56,6 +57,11 @@ namespace SGE { namespace Components {
     public:
         EntityObject() = default;
         EntityObject(Register& reg, Entity e) : m_owner(&reg), m_entity(e) {}
+        Register* owner() { return m_owner; }
+        Entity entity() { return m_entity; }
+        operator Entity() { return m_entity; }
+        operator Entity&() { return m_entity; }
+        operator const Entity&() const { return m_entity; }
     private:
         Register* m_owner=nullptr;
         Entity m_entity;
@@ -161,6 +167,12 @@ namespace SGE { namespace Components {
                 ...
             );
         }
+        template<class TYPE>
+        TYPE& get_single(Entity entity) {
+            return reinterpret_cast<Component<TYPE>*>(m_dense[get_type<TYPE>()].data())[
+                    m_sparse[get_type<TYPE>()][entity]
+                ].data ;
+        }
         template<class... ARGS>
         bool has(Entity entity) {
             return m_signatures[entity].has_sign(get_type<ARGS>()...);
@@ -189,12 +201,19 @@ namespace SGE { namespace Components {
                 using pointer = void;
                 using reference = void;
             public:
-                explicit iterator(Register& reg, Entity idx) : m_register(reg), m_idx(idx) {}
+                explicit iterator(Register& reg, Entity idx) : m_register(reg), m_idx(idx) {
+                    while (m_idx<m_register.m_entityDense.size() && !m_register.has<ARGS...>(m_register.m_entityDense[m_idx])) {
+                        ++m_idx;
+                    }                    
+                }
                 value_type operator*() {
                     return m_register.get<ARGS...>(m_register.m_entityDense[m_idx]);
                 }
                 void operator++() {
                     ++m_idx;
+                    while (m_idx<m_register.m_entityDense.size() && !m_register.has<ARGS...>(m_register.m_entityDense[m_idx])) {
+                        ++m_idx;
+                    }
                     if (m_idx>=m_register.m_entityDense.size()) m_idx = -1;
                 }
                 bool operator==(const iterator& other) const {
@@ -222,9 +241,67 @@ namespace SGE { namespace Components {
         private:
             Register& m_register;
         } ;
+    
+            template<class... ARGS>
+        class EntityView {
+        public:
+            using TUPLE = std::tuple<const Entity&, ARGS&...>;
+            class iterator {
+            public:
+                using iterator_categories = std::input_iterator_tag;
+                using value_type = TUPLE;
+                using difference_type = std::ptrdiff_t;
+                using pointer = void;
+                using reference = void;
+            public:
+                explicit iterator(Register& reg, Entity idx) : m_register(reg), m_idx(idx) {
+                    while (m_idx<m_register.m_entityDense.size() && !m_register.has<ARGS...>(m_register.m_entityDense[m_idx])) {
+                        ++m_idx;
+                    }                                
+                }
+                value_type operator*() {
+                    return std::forward_as_tuple<const Entity&, ARGS&...>(m_register.m_entityDense[m_idx], std::ref(m_register.get_single<ARGS>(m_register.m_entityDense[m_idx]))...);
+                }
+                void operator++() {
+                    ++m_idx;
+                    while (m_idx<m_register.m_entityDense.size() && !m_register.has<ARGS...>(m_register.m_entityDense[m_idx])) {
+                        ++m_idx;
+                    }
+                    if (m_idx>=m_register.m_entityDense.size()) m_idx = -1;
+                }
+                bool operator==(const iterator& other) const {
+                    return &m_register==&other.m_register && m_idx==other.m_idx;
+                }
+                bool operator!=(const iterator& other) const {
+                    return !((*this)==other);
+                }
+            private:
+                Register& m_register;
+                Entity m_idx;
+            } ;
+        public:
+            explicit EntityView(Register& reg) : m_register(reg) {}
+            iterator begin() {
+                if (m_register.m_entityDense.empty())
+                    return iterator(m_register, 0);
+                return iterator(m_register, m_register.m_entityDense.front());
+            }
+            iterator end() {
+                if (m_register.m_entityDense.empty())
+                    return iterator(m_register, 0);
+                return iterator(m_register, -1);
+            }
+        private:
+            Register& m_register;
+        } ;
+
         template<class... ARGS>
         View<ARGS...> view() {
             return View<ARGS...>(*this);
+        }
+        template<class... ARGS>
+        EntityView<ARGS...> entity_view() {
+            return EntityView<ARGS...>(*this);
         }
     private:
         struct SizeQuery {

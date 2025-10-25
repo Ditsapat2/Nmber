@@ -19,7 +19,10 @@ namespace SGE {
         Texture2D()=default;
         Texture2D(unsigned w, unsigned h, void* data, TextureFormat format) ;
         Texture2D(const std::string& filepath) ;
+        Texture2D(Texture2D&& other) ;
         ~Texture2D() ;
+
+        void operator=(Texture2D&& other) ;
 
         void bind(unsigned slot) ;
         void unbind() ;

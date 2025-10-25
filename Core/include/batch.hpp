@@ -71,6 +71,7 @@ namespace SGE {
             m_ibo.bind();
             m_vbo.bind();
             glDrawElements(GL_TRIANGLES, m_indices.size(), enum_type<INDEX>(), nullptr);
+            m_pLayout->unbind();
         }
     private:
         std::vector<VERTEX> m_vertexes;

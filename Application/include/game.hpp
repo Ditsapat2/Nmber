@@ -4,7 +4,7 @@ namespace Nmber {
 
     constexpr unsigned GAME_SCENE=0;
     struct Vertex2D {
-        float x,y,z;
+        float x,y;
         float r,g,b,a;
         float texID;
         float texCoordX, texCoordY;
@@ -42,6 +42,9 @@ namespace Nmber {
     public:
         Resources() = default;
         static inline Resources& get() { return m_instance; }
+        static TextureResources& get_texture() {
+            return get().m_textures;
+        }
         static int add_texture2D(SGE::Texture2D&& texture, int idx=-1) {
             return get()._add_texture2D(std::move(texture), idx);
         }

@@ -1,7 +1,6 @@
 #include "../include/game.hpp"
 #include "../include/component.hpp"
 #include "../include/level.hpp"
-
 namespace Nmber {
     Game::~Game() {
 
@@ -26,66 +25,66 @@ namespace Nmber {
             return ;
         }
         auto a = Resources::load_texture2D("../../../image/sixseven.jpg");
-        Resources::get_texture2D(a).bind(0);
         Resources::add_spriteTextureAlias(0, 0,0, 1,1);
 
         Resources::add_scene(GAME_SCENE);
         m_modelMat = SGE::identity_mat();
         m_viewMat = SGE::identity_mat();
-        m_projMat = SGE::ortho_mat(w,0, h,0, -1,10);
+        m_projMat = SGE::ortho_mat(w,0, h,0, -10,10);
         glfwSetFramebufferSizeCallback(m_window, frameBufferSizeCallback);
     }
     void Game::run() {
         
         auto player = Resources::get_scene(GAME_SCENE).construct_entity(
-            Transform{0,0,0, 100,100},
-            DrawResource(0)
+            Transform(0,0, 100,100),
+            DrawResource(0),
+            Layer(1)
         );
     
-       Resources::get_graphic().renderer2D.emplace_back();
+        Resources::get_graphic().renderer2D.emplace_back();
 
         Resources::get_graphic().renderer2D[0].bind_layout(&Resources::get_graphic().layout);
         Resources::get_graphic().renderer2D[0].bind();
         Resources::get_graphic().layout.push_layout(
-            SGE::FLOAT, 3,
+            SGE::FLOAT, 2,
             SGE::FLOAT, 4,
             SGE::FLOAT, 1,
             SGE::FLOAT, 2
         );
-       Resources::get_graphic().layout.set_stride(sizeof(Vertex2D));
+        Resources::get_graphic().layout.set_stride(sizeof(Vertex2D));
 
-       auto shaders = SGE::shaders_fromFile(std::ifstream("../../../Application/shader/test.glsl"));
-       Resources::get_graphic().program = SGE::Program(shaders);
+        auto shaders = SGE::shaders_fromFile(std::ifstream("../../../Application/shader/test.glsl"));
+        Resources::get_graphic().program = SGE::Program(shaders);
 
-       Resources::get_graphic().program.bind_with().uniform_mat4(
+        std::ifstream file("../../../Application/map/test.tmj");
+        Level level(file);
+        auto tileIMG = Resources::load_texture2D("C:/Users/Lenovo Thinkpad T14/Pictures/Saved Pictures/terrain_atlas.png");
+
+        int TILE = make_tileset(1, 32,32, Resources::get_texture());
+        level.load_level(Resources::get_scene(GAME_SCENE), {32.f,32.f, 0.f,0.f}, 16, 64, TILE);
+
+        Resources::get_graphic().program.bind_with().uniform_mat4(
             "u_proj", m_projMat,
             "u_view", m_viewMat,
             "u_model", m_modelMat
-       );
-       int t[] = { 0 };
-       Resources::get_graphic().program.bind_with().uniform_1iv(
-            "u_textures", t, 1
-       );
+        );
+        int t[] = { 0,1,2,3,4,5,6,7,8,9 };
+        Resources::get_graphic().program.bind_with().uniform_1iv(
+            "u_textures", t, 10
+        );
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-       Resources::get_scene(GAME_SCENE).construct_entity(
-        Transform{100,100,.1f, 100,100},
-        DrawResource(1.f,0.f,0.f,1.f)
-       );
-       Level level(std::ifstream("../../../Application/map/test.tmj"));
-       level.load_level(Resources::get_scene(GAME_SCENE));
-       
-       glEnable(GL_DEPTH_TEST);
-       glDepthFunc(GL_LESS);
-       SGE::Time::get().restart();
+
+        SGE::Time::get().restart();
         while (!glfwWindowShouldClose(m_window))
         {
+            Resources::get_texture2D(0).bind(0);
+            Resources::get_texture2D(1).bind(1);
             SGE::Time::get().update();
             auto delta = SGE::Time::get().get_elapsedTime();
             glClearColor(0.431, 0.862, 0.941, 1.0);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-          //  Resources::get_graphic().layout.bind();
-            // ibo.bind();
-            // vbo.bind();
+            glClear(GL_COLOR_BUFFER_BIT);
             auto [t] = Resources::get_scene(GAME_SCENE).get<Transform>(player);
             SGE::Vec<2,float> f({0,0});
             auto force = SGE::position_view(f);
@@ -103,24 +102,56 @@ namespace Nmber {
             t.x+=std::abs(force.x)*std::cos(rad)*delta;
             t.y+=std::abs(force.y)*std::sin(rad)*delta;
 
+            std::vector<SGE::Components::EntityObject> entities;
             Resources::get_graphic().renderer2D[0].clear();
-            for (auto [t,d] : Resources::get_scene(GAME_SCENE).view<Transform, DrawResource>()) {
-                float texID;
-                if (d.id==-1) texID=-1;
-                else texID = Resources::get_spriteTextureAlias(d.id).slot;
+            for (auto [entity,t,d,l] : Resources::get_scene(GAME_SCENE).entity_view<Transform, DrawResource, Layer>()) {
+                if (!Resources::get_scene(GAME_SCENE).has<Layer>(entity))
+                    std::cout << entity << " false\n";
+                entities.emplace_back(Resources::get_scene(GAME_SCENE), entity);
+            }
+
+            auto depthSort = [](SGE::Components::EntityObject& a, SGE::Components::EntityObject& b) {
+                auto [la,ta] = a.owner()->get<Layer, Transform>(a.entity());
+                auto [lb,tb] = b.owner()->get<Layer, Transform>(b.entity());
+
+                if (la.layer==lb.layer) {
+                    return ta.y>tb.y;
+                }
+                return la.layer < lb.layer;
+            } ;
+            std::sort(entities.begin(), entities.end(), depthSort);
+            for (auto& entity : entities) {
+                auto [t,d] = Resources::get_scene(GAME_SCENE).get<Transform, DrawResource>(entity.entity());
+                float texID, x1,y1, x2,y2;
+                if (d.id==-1) {
+                    texID=-1;
+                    x1=0.f;
+                    y1=0.f;
+                    x2=1.f;
+                    y2=1.f;
+                }
+                else {
+                    auto& alias = Resources::get_spriteTextureAlias(d.id);
+                    texID = alias.slot;
+                    x1=alias.x1;
+                    y1=alias.y1;
+                    x2=alias.x2;
+                    y2=alias.y2;
+                }
+
                 Vertex2D v[] = {
-                    t.x,t.y,t.z, d.r,d.g,d.b,d.a, texID, 0.f,0.f,
-                    t.x,t.y+t.h,t.z, d.r,d.g,d.b,d.a, texID, 0.f,1.f,
-                    t.x+t.w,t.y,t.z, d.r,d.g,d.b,d.a, texID, 1.f,0.f,
-                    t.x+t.w,t.y+t.h,t.z, d.r,d.g,d.b,d.a, texID, 1.f,1.f
+                    t.x,t.y, d.r,d.g,d.b,d.a, (float)texID, (float)x1,(float)y1,
+                    t.x,t.y+t.h, d.r,d.g,d.b,d.a, (float)texID, (float)x1,(float)y2,
+                    t.x+t.w,t.y, d.r,d.g,d.b,d.a, (float)texID, (float)x2,(float)y1,
+                    t.x+t.w,t.y+t.h, d.r,d.g,d.b,d.a, (float)texID, (float)x2,(float)y2
                 } ;
                 unsigned i[] = {0,1,2,1,2,3};
 
-                Resources::get_graphic().renderer2D[0].push(v,4,i,6);
+                Resources::get_graphic().renderer2D[0].push(v,4,i,6);                
             }
             int w,h;
             glfwGetFramebufferSize(m_window, &w,&h);
-            m_projMat=SGE::ortho_mat(w,0,h,0,-1,1);
+            m_projMat=SGE::ortho_mat(w,0,h,0,-10,10);
             Resources::get_graphic().program.bind_with().uniform_mat4(
                 "u_proj", m_projMat
             );

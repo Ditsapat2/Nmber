@@ -218,5 +218,11 @@ CMakeFiles/Number.dir/Application/src/application.cpp.obj: \
  C:/msys64/ucrt64/include/sec_api/string_s.h \
  C:/msys64/ucrt64/include/c++/14.2.0/iterator \
  C:/msys64/ucrt64/include/c++/14.2.0/bits/stream_iterator.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/algorithm \
+ C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_algo.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/bits/algorithmfwd.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/bits/stl_heap.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/bits/uniform_int_dist.h \
+ C:/msys64/ucrt64/include/c++/14.2.0/pstl/glue_algorithm_defs.h \
  D:/Learn/Core/include/time.hpp D:/Learn/Application/include/game.hpp \
  D:/Learn/Application/include/component.hpp

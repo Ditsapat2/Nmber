@@ -28,8 +28,28 @@ in vec2 v_texCoord;
 in vec4 v_color;
 out vec4 FragColor;
 
+#define Case(n) if(tid==n){s=texture2D(u_textures[n],v_texCoord);}
+
 void main()
 {
-    if (v_texID>=0.0) FragColor =  texture2D(u_textures[int(v_texID)], v_texCoord)*v_color;
-    else FragColor = v_color;
+    vec4 color = v_color;
+    int tid = int(v_texID);
+    vec4 s;
+    if (v_texID>=0.0) {
+        Case(0)
+        else Case(1)
+        else Case(2)
+        else Case(3)
+        else Case(4)
+        else Case(5)
+        else Case(6)
+
+            // Case(3);
+            // Case(4);
+            // Case(5);
+            // Case(6);
+            // Case(7);
+        FragColor =  s*color;
+    }
+    else FragColor = color;
 }
