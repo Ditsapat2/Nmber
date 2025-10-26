@@ -1,3 +1,0 @@
-C:\cmake-4.1.2-windows-x86_64\bin\cmake.exe -E rm -f CMakeFiles\Number.dir/objects.a
-C:\msys64\ucrt64\bin\ar.exe qc CMakeFiles\Number.dir/objects.a @CMakeFiles\Number.dir\objects1.rsp
-C:\msys64\ucrt64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\Number.dir/objects.a -Wl,--no-whole-archive -o Number.exe -Wl,--out-implib,libNumber.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Number.dir\linkLibs.rsp

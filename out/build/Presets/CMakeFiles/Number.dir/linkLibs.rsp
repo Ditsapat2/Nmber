@@ -1,1 +1,0 @@
- Dependencies/GLFW/src/libglfw3.a libglad.a libstb_image.a -lopengl32 libAPPLICATION_LIBRARY.a Core/libSGE_GRAPHIC_LIBRARIES.a -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
